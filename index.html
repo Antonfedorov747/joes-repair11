@@ -1,0 +1,612 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Joe's GE - Repair, Restore, Upgrade</title>
+  <meta name="description" content="Expert device repairs, replacement parts, and pro repair tools from Joe's GE.">
+  <style>
+    :root {
+      --red: #cc1f1f;
+      --black: #111;
+      --text: #111;
+      --muted: #444;
+      --line: #e2e2e2;
+      --soft: #f1f1f1;
+      --radius: 8px;
+      --wrap: 440px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: #f6f6f6;
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.2;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    button { font: inherit; }
+
+    .page {
+      width: min(100%, var(--wrap));
+      margin: 0 auto;
+      min-height: 100vh;
+      background: #fff;
+      overflow: hidden;
+    }
+
+    .topbar {
+      height: 34px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 14px;
+      background: var(--black);
+      color: #fff;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .topbar img {
+      width: 34px;
+      height: 34px;
+      object-fit: contain;
+      margin-left: 2px;
+    }
+
+    .topbar strong { font-weight: 700; }
+    .topbar .phone { color: #d71920; font-weight: 800; }
+
+    .header {
+      height: 74px;
+      display: grid;
+      grid-template-columns: 82px 1fr 82px;
+      align-items: center;
+      padding: 0 10px;
+      background: #fff;
+    }
+
+    .header-left,
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .header-right { justify-content: flex-end; position: relative; }
+
+    .icon-button {
+      display: grid;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      border: 0;
+      background: transparent;
+      padding: 0;
+    }
+
+    .icon-button img { width: 100%; height: 100%; object-fit: contain; }
+    .icon-button.burger img { width: 28px; height: 22px; }
+    .icon-button.search img { width: 48px; height: 48px; }
+    .icon-button.cart-main img { width: 40px; height: 40px; }
+    .icon-button.cart-small { position: absolute; right: -1px; top: -11px; width: 25px; height: 25px; }
+
+    .logo {
+      justify-self: center;
+      width: 171px;
+      height: 74px;
+      object-fit: contain;
+    }
+
+    .hero {
+      position: relative;
+      width: calc(100% - 26px);
+      min-height: 231px;
+      margin: 0 auto;
+      border-radius: var(--radius);
+      overflow: hidden;
+      color: #fff;
+      background: linear-gradient(147deg, #111 31%, #7e1118 62%, #b81921 100%);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0 0 0 auto;
+      width: 52%;
+      background: #fff;
+      clip-path: ellipse(73% 86% at 95% 50%);
+      z-index: 0;
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 2;
+      width: 64%;
+      padding: 10px 0 18px 10px;
+    }
+
+    .eyebrow {
+      margin: 0;
+      color: var(--red);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+    }
+
+    .red-rule {
+      width: 40px;
+      height: 2px;
+      margin: 7px 0 3px;
+      background: var(--red);
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(25px, 7.2vw, 32px);
+      line-height: 1.05;
+      font-weight: 900;
+      letter-spacing: 0;
+    }
+
+    .hero h1 span {
+      display: block;
+      color: var(--red);
+      margin-top: 2px;
+    }
+
+    .hero p {
+      margin: 7px 0 11px;
+      width: 210px;
+      max-width: 100%;
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.24;
+    }
+
+    .hero-devices {
+      position: absolute;
+      z-index: 1;
+      right: -12px;
+      top: 0;
+      width: 178px;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    .button-stack {
+      display: grid;
+      gap: 7px;
+      width: 155px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      height: 32px;
+      padding: 0 14px;
+      border-radius: 5px;
+      border: 1px solid transparent;
+      background: var(--red);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .btn.outline {
+      background: #1c1c1c;
+      border-color: #fff;
+    }
+
+    .arrow {
+      width: 9px;
+      height: 9px;
+      border-right: 2px solid currentColor;
+      border-top: 2px solid currentColor;
+      transform: rotate(45deg);
+      flex: 0 0 auto;
+    }
+
+    .benefits {
+      position: relative;
+      z-index: 4;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      width: calc(100% - 32px);
+      margin: -27px auto 0;
+      padding: 9px 18px 10px;
+      gap: 10px 24px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #eee;
+    }
+
+    .benefits::before,
+    .benefits::after {
+      content: "";
+      position: absolute;
+      background: var(--line);
+    }
+
+    .benefits::before {
+      left: 50%;
+      top: 10px;
+      bottom: 10px;
+      width: 1px;
+    }
+
+    .benefits::after {
+      left: 10%;
+      right: 10%;
+      top: 50%;
+      height: 1px;
+    }
+
+    .benefit {
+      display: grid;
+      grid-template-columns: 20px 1fr;
+      gap: 6px;
+      align-items: start;
+      min-width: 0;
+    }
+
+    .benefit svg {
+      width: 20px;
+      height: 20px;
+      color: var(--red);
+      stroke-width: 1.8;
+    }
+
+    .benefit b,
+    .benefit span {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .benefit b { font-size: 10px; line-height: 1; }
+    .benefit span { font-size: 8px; line-height: 1.05; }
+
+    .section-title {
+      margin: 10px auto 8px;
+      text-align: center;
+    }
+
+    .section-title .eyebrow {
+      font-size: 12px;
+      line-height: 1;
+    }
+
+    .section-title h2 {
+      margin: 4px 0 0;
+      font-size: 20px;
+      line-height: 1;
+      font-weight: 900;
+    }
+
+    .service-list {
+      display: grid;
+      gap: 8px;
+      width: calc(100% - 26px);
+      margin: 0 auto;
+    }
+
+    .service-card {
+      display: grid;
+      grid-template-columns: 40% 1fr;
+      height: 140px;
+      overflow: hidden;
+      border-radius: 8px;
+      background: linear-gradient(180deg, #efedee 0%, #f7f6f6 100%);
+    }
+
+    .service-card img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+    }
+
+    .service-card.parts img { object-position: 48% 44%; }
+    .service-card.tools img { object-position: 38% 50%; }
+
+    .service-copy {
+      min-width: 0;
+      padding: 9px 10px 10px 10px;
+    }
+
+    .service-copy h3 {
+      margin: 0 0 6px;
+      font-size: clamp(24px, 6.5vw, 28px);
+      line-height: 1;
+      font-weight: 850;
+      white-space: nowrap;
+    }
+
+    .service-copy p {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.18;
+      font-weight: 500;
+    }
+
+    .service-copy .btn {
+      width: 171px;
+      max-width: 100%;
+      height: 37px;
+      border-radius: 6px;
+      font-size: 17px;
+    }
+
+    .devices-title { margin-top: 9px; }
+
+    .device-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      width: calc(100% - 22px);
+      margin: 0 auto 14px;
+    }
+
+    .device {
+      display: grid;
+      place-items: center;
+      height: 45px;
+      padding: 5px 4px 4px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--soft);
+      font-size: 10px;
+      font-weight: 600;
+      line-height: 1;
+      text-align: center;
+    }
+
+    .device img {
+      width: 20px;
+      height: 20px;
+      object-fit: contain;
+      margin-bottom: 3px;
+    }
+
+    .reviews-head {
+      display: grid;
+      grid-template-columns: 125px 1fr;
+      align-items: center;
+      width: calc(100% - 42px);
+      margin: 0 auto 10px;
+      gap: 10px;
+    }
+
+    .score {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .score-number {
+      font-family: Impact, "Arial Narrow", sans-serif;
+      font-size: 40px;
+      line-height: 1;
+    }
+
+    .score-stars {
+      color: var(--red);
+      font-size: 17px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      white-space: nowrap;
+    }
+
+    .score-reviews {
+      color: #9e9e9e;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .reviews-label {
+      color: var(--red);
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: 3px;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .reviews {
+      display: grid;
+      gap: 10px;
+      width: calc(100% - 26px);
+      margin: 0 auto 18px;
+    }
+
+    .review {
+      min-height: 107px;
+      padding: 14px 56px 12px;
+      border: 2px solid var(--line);
+      border-radius: 16px;
+    }
+
+    .review .stars {
+      color: var(--red);
+      font-size: 16px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+
+    .review p {
+      margin: 0 0 8px;
+      font-size: 16px;
+      line-height: 1.18;
+      font-weight: 500;
+    }
+
+    .review strong {
+      display: block;
+      font-size: 16px;
+      line-height: 1.1;
+      font-weight: 800;
+    }
+
+    @media (max-width: 390px) {
+      .topbar { font-size: 12px; gap: 5px; padding: 0 8px; }
+      .header { grid-template-columns: 70px 1fr 70px; padding: 0 8px; }
+      .logo { width: 142px; }
+      .hero { width: calc(100% - 20px); min-height: 231px; }
+      .hero-copy { width: 65%; padding-left: 8px; }
+      .hero-devices { right: -22px; width: 164px; }
+      .benefits { width: calc(100% - 18px); padding: 8px 9px; gap: 10px 15px; }
+      .benefit { grid-template-columns: 17px 1fr; gap: 5px; }
+      .benefit svg { width: 17px; height: 17px; }
+      .service-list,
+      .reviews { width: calc(100% - 20px); }
+      .service-card { grid-template-columns: 41% 1fr; }
+      .service-copy { padding-right: 8px; }
+      .service-copy h3 { font-size: 24px; }
+      .service-copy p { font-size: 15px; }
+      .device-grid { width: calc(100% - 18px); gap: 7px; }
+      .reviews-head { width: calc(100% - 28px); grid-template-columns: 118px 1fr; }
+      .score-number { font-size: 34px; }
+      .reviews-label { font-size: 16px; letter-spacing: 2.4px; }
+      .review { padding-left: 40px; padding-right: 28px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="topbar">
+      <img src="./icon-delivery.svg" alt="">
+      <span><strong>FREE US Shipping</strong> | Questions? Text <span class="phone">(360) 362-1722</span></span>
+    </div>
+
+    <header class="header" aria-label="Site header">
+      <div class="header-left">
+        <button class="icon-button burger" aria-label="Open menu"><img src="./burger.svg" alt=""></button>
+        <button class="icon-button search" aria-label="Search"><img src="./icon-search.svg" alt=""></button>
+      </div>
+      <img class="logo" src="./logo.png" alt="Joe's">
+      <div class="header-right">
+        <button class="icon-button cart-main" aria-label="Open cart"><img src="./icon-cart.svg" alt=""></button>
+        <img class="icon-button cart-small" src="./cart.svg" alt="">
+      </div>
+    </header>
+
+    <section class="hero" aria-labelledby="hero-title">
+      <img class="hero-devices" src="./hero-devices.png" alt="Apple headphones, phone parts, watch, and repair tools">
+      <div class="hero-copy">
+        <p class="eyebrow">Repair. Restore. Upgrade</p>
+        <div class="red-rule"></div>
+        <h1 id="hero-title">Fix it.<span>Don't replace it.</span></h1>
+        <p>Expert repairs, quality parts, and pro tools - for every device you depend on.</p>
+        <div class="button-stack">
+          <a class="btn" href="#repair">Start a Repair <i class="arrow" aria-hidden="true"></i></a>
+          <a class="btn outline" href="#parts">Shop Parts <i class="arrow" aria-hidden="true"></i></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="benefits" aria-label="Store benefits">
+      <div class="benefit">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg>
+        <div><b>Mail-In Repairs</b><span>Convenient &amp; reliable</span></div>
+      </div>
+      <div class="benefit">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M12 3 5 6v5c0 4.3 2.8 8.1 7 9 4.2-.9 7-4.7 7-9V6z"/><path d="m9 12 2 2 4-5"/></svg>
+        <div><b>Quality Parts</b><span>Tested. Trusted.</span></div>
+      </div>
+      <div class="benefit">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M3 7h11v9H3z"/><path d="M14 10h3l3 3v3h-6z"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>
+        <div><b>Free US Shipping</b><span>Fast, on all orders</span></div>
+      </div>
+      <div class="benefit">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="m12 3 2.7 5.5 6 .9-4.3 4.2 1 5.9-5.4-2.8-5.4 2.8 1-5.9-4.3-4.2 6-.9z"/></svg>
+        <div><b>4.87 Rating</b><span>3,334 verified reviews</span></div>
+      </div>
+    </section>
+
+    <section class="section-title">
+      <p class="eyebrow">What do you need?</p>
+      <h2>Repair or shop</h2>
+    </section>
+
+    <section class="service-list" aria-label="Repair and shopping options">
+      <article class="service-card" id="repair">
+        <img src="./repair-card.png" alt="Repairing a smartwatch with a red screwdriver">
+        <div class="service-copy">
+          <h3>Need a Repair?</h3>
+          <p>Fast, pro repairs for phones tablets, headphones.</p>
+          <a class="btn" href="#">Get a Quote <i class="arrow" aria-hidden="true"></i></a>
+        </div>
+      </article>
+
+      <article class="service-card parts" id="parts">
+        <img src="./parts-card.png" alt="Replacement watch parts">
+        <div class="service-copy">
+          <h3>Shop Parts</h3>
+          <p>Reliable replacement parts for popular devices.</p>
+          <a class="btn" href="#">Buy Parts <i class="arrow" aria-hidden="true"></i></a>
+        </div>
+      </article>
+
+      <article class="service-card tools">
+        <img src="./tools-card.png" alt="Precision repair tool kit and tweezers">
+        <div class="service-copy">
+          <h3>Tools &amp; Kits</h3>
+          <p>Precision tools for DIY and professional repair work.</p>
+          <a class="btn" href="#">Shop Tools <i class="arrow" aria-hidden="true"></i></a>
+        </div>
+      </article>
+    </section>
+
+    <section class="section-title devices-title">
+      <p class="eyebrow">Browse by device</p>
+      <h2>What are you fixing?</h2>
+    </section>
+
+    <section class="device-grid" aria-label="Browse by device">
+      <a class="device" href="#"><img src="./icon-iphone.svg" alt="">iPhone</a>
+      <a class="device" href="#"><img src="./icon-android.svg" alt="">Android</a>
+      <a class="device" href="#"><img src="./icon-ipad.svg" alt="">iPad / Tablet</a>
+      <a class="device" href="#"><img src="./icon-headphones.svg" alt="">Headphones</a>
+      <a class="device" href="#"><img src="./icon-smartwatch.svg" alt="">Smartwatch</a>
+      <a class="device" href="#"><img src="./icon-gaming.svg" alt="">Gaming</a>
+    </section>
+
+    <section class="reviews-head" aria-label="Customer review summary">
+      <div class="score">
+        <div class="score-number">4.87</div>
+        <div>
+          <div class="score-stars">★★★★★</div>
+          <div class="score-reviews">3,334 reviews</div>
+        </div>
+      </div>
+      <div class="reviews-label">CUSTOMER REVIEWS</div>
+    </section>
+
+    <section class="reviews" aria-label="Customer reviews">
+      <article class="review">
+        <div class="stars">★★★★★</div>
+        <p>"Very easy to repair my Beats Studio 3. Parts arrived fast and fit perfectly.</p>
+        <strong>Jeff H.</strong>
+      </article>
+      <article class="review">
+        <div class="stars">★★★★★</div>
+        <p>"Part arrived quickly and was in perfect condition. Will definitely order again"</p>
+        <strong>Anonymous</strong>
+      </article>
+    </section>
+  </main>
+</body>
+</html>
